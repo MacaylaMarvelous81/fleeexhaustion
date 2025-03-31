@@ -1,0 +1,13 @@
+{
+    "type": "code",
+    "modid": "fleeexhaustion",
+    "name": "Flee Exhaustion",
+    "authors": [
+        "Isif"
+    ],
+    "description": "Entities run at slower speeds when they are hurt.",
+    "version": "1.0.0",
+    "dependencies": {
+        "game": ""
+    }
+}
