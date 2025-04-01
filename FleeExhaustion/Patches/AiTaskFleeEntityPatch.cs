@@ -40,7 +40,6 @@ public class AiTaskFleeEntityPatch
 
         __instance.entity.DebugAttributes.SetFloat("movespeed", moveSpeed.GetValue<float>());
         __instance.entity.DebugAttributes.SetFloat("minspeed", extended.MinimumMoveSpeed);
-        __instance.entity.DebugAttributes.SetBool("exhaustible", extended.Exhausts);
         __instance.entity.DebugAttributes.SetFloat("exhauststrength", exhaustStrength);
     }
 }
