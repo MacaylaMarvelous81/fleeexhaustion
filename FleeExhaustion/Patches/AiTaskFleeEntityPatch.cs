@@ -15,6 +15,8 @@ public class AiTaskFleeEntityPatch
     {
         ExtendedAiTaskFleeEntity extended = ExtendedAiTaskFleeEntity.FromOriginal(__instance);
         extended.InitialMoveSpeed = taskConfig["movespeed"].AsFloat(0.02f);
+        extended.MinimumMoveSpeed = taskConfig["minmovespeed"].AsFloat(extended.InitialMoveSpeed / 2);
+        extended.Exhausts = taskConfig["exhausts"].AsBool(true);
     }
 
     [HarmonyPrefix]
@@ -22,14 +24,22 @@ public class AiTaskFleeEntityPatch
     public static void PreStartExecute(AiTaskFleeEntity __instance)
     {
         ExtendedAiTaskFleeEntity extended = ExtendedAiTaskFleeEntity.FromOriginal(__instance);
+
+        if (!extended.Exhausts) return;
+        
         Traverse traverse = Traverse.Create(__instance);
         Traverse moveSpeed = traverse.Field("moveSpeed");
 
         EntityBehaviorHealth health = __instance.entity.GetBehavior<EntityBehaviorHealth>();
         if (health != null)
         {
-            moveSpeed.SetValue(Math.Min(extended.InitialMoveSpeed,
-                extended.InitialMoveSpeed * (health.Health / health.MaxHealth)));
+            moveSpeed.SetValue(Math.Clamp(extended.InitialMoveSpeed * (health.Health / health.MaxHealth), extended.MinimumMoveSpeed, extended.InitialMoveSpeed));
+            
+            __instance.entity.DebugAttributes.SetFloat("healthratio", health.Health / health.MaxHealth);
         }
+
+        __instance.entity.DebugAttributes.SetFloat("movespeed", moveSpeed.GetValue<float>());
+        __instance.entity.DebugAttributes.SetFloat("minspeed", extended.MinimumMoveSpeed);
+        __instance.entity.DebugAttributes.SetBool("exhaustible", extended.Exhausts);
     }
 }

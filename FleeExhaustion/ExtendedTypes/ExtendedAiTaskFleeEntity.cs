@@ -10,6 +10,8 @@ public class ExtendedAiTaskFleeEntity
     public readonly AiTaskFleeEntity AiTask;
     
     public float InitialMoveSpeed;
+    public float MinimumMoveSpeed;
+    public bool Exhausts;
 
     public ExtendedAiTaskFleeEntity(AiTaskFleeEntity aiTask)
     {
