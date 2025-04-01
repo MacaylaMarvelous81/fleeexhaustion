@@ -29,17 +29,18 @@ public class AiTaskFleeEntityPatch
         
         Traverse traverse = Traverse.Create(__instance);
         Traverse moveSpeed = traverse.Field("moveSpeed");
+        
+        float exhaustStrength = 1 / __instance.world.Config.GetFloat("exhaustStrength", 1f);
 
         EntityBehaviorHealth health = __instance.entity.GetBehavior<EntityBehaviorHealth>();
         if (health != null)
         {
-            moveSpeed.SetValue(Math.Clamp(extended.InitialMoveSpeed * (health.Health / health.MaxHealth), extended.MinimumMoveSpeed, extended.InitialMoveSpeed));
-            
-            __instance.entity.DebugAttributes.SetFloat("healthratio", health.Health / health.MaxHealth);
+            moveSpeed.SetValue(Math.Clamp(extended.InitialMoveSpeed * (health.Health / health.MaxHealth) * exhaustStrength, extended.MinimumMoveSpeed, extended.InitialMoveSpeed));
         }
 
         __instance.entity.DebugAttributes.SetFloat("movespeed", moveSpeed.GetValue<float>());
         __instance.entity.DebugAttributes.SetFloat("minspeed", extended.MinimumMoveSpeed);
         __instance.entity.DebugAttributes.SetBool("exhaustible", extended.Exhausts);
+        __instance.entity.DebugAttributes.SetFloat("exhauststrength", exhaustStrength);
     }
 }
