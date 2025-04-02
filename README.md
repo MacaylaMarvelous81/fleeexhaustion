@@ -3,7 +3,7 @@
 Code mod for [Vintage Story](https://www.vintagestory.at). Entities run at slower speeds when they are hurt.
 
 ## Configuration
-The world config `exhaustStrength` is a float which changes how strong the effect is. Default is 1 (100%).
+The server config is in the ModConfig `fleeexhaustion-server.json`. `ExhaustStrength` is a float which changes how strong the effect is. Default is 1 (100%).
 
 ## Mod Integration
 This mod adds two new configuration options to the `fleeentity` AI task:
