@@ -6,7 +6,7 @@
         "Isif"
     ],
     "description": "Entities run at slower speeds when they are hurt.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "dependencies": {
         "game": ""
     },
