@@ -29,9 +29,11 @@ public class AiTaskFleeEntityPatch
         
         Traverse traverse = Traverse.Create(__instance);
         Traverse moveSpeed = traverse.Field("moveSpeed");
-        
-        float exhaustStrength = 1 / __instance.world.Api.ModLoader.GetModSystem<FleeExhaustionModSystem>().ServerConfig
-            .ExhaustStrength;
+
+        float configExhaustStrength =
+            __instance.world.Api.ModLoader.GetModSystem<FleeExhaustionModSystem>().ServerConfig.ExhaustStrength;
+        // Reciprocal of the exhaust strength in the config, or 1 if it is configured to be 0.
+        float exhaustStrength = configExhaustStrength == 0 ? 1 : 1 / configExhaustStrength;
 
         EntityBehaviorHealth health = __instance.entity.GetBehavior<EntityBehaviorHealth>();
         if (health != null)
