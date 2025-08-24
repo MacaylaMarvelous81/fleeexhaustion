@@ -11,7 +11,7 @@ public class AiTaskFleeEntityPatch
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(AiTaskFleeEntity), MethodType.Constructor)]
-    public static void PostLoadConfig(AiTaskFleeEntity __instance, JsonObject taskConfig)
+    public static void PostConstructor(AiTaskFleeEntity __instance, JsonObject taskConfig)
     {
         ExtendedAiTaskFleeEntity extended = ExtendedAiTaskFleeEntity.FromOriginal(__instance);
         extended.InitialMoveSpeed = taskConfig["movespeed"].AsFloat(0.02f);
