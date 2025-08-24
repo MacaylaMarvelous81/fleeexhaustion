@@ -10,7 +10,7 @@ namespace FleeExhaustion.Patches;
 public class AiTaskFleeEntityPatch
 {
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(AiTaskFleeEntity), nameof(AiTaskFleeEntity.LoadConfig))]
+    [HarmonyPatch(typeof(AiTaskFleeEntity), MethodType.Constructor)]
     public static void PostLoadConfig(AiTaskFleeEntity __instance, JsonObject taskConfig)
     {
         ExtendedAiTaskFleeEntity extended = ExtendedAiTaskFleeEntity.FromOriginal(__instance);
