@@ -1,6 +1,7 @@
 using System;
 using FleeExhaustion.ExtendedTypes;
 using HarmonyLib;
+using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -10,8 +11,8 @@ namespace FleeExhaustion.Patches;
 public class AiTaskFleeEntityPatch
 {
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(AiTaskFleeEntity), MethodType.Constructor)]
-    public static void PostConstructor(AiTaskFleeEntity __instance, JsonObject taskConfig)
+    [HarmonyPatch(typeof(AiTaskFleeEntity), MethodType.Constructor, new[] { typeof(EntityAgent), typeof(JsonObject), typeof(JsonObject) })]
+    public static void Postfix(AiTaskFleeEntity __instance, JsonObject taskConfig)
     {
         ExtendedAiTaskFleeEntity extended = ExtendedAiTaskFleeEntity.FromOriginal(__instance);
         extended.InitialMoveSpeed = taskConfig["movespeed"].AsFloat(0.02f);

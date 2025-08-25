@@ -11,8 +11,8 @@ namespace FleeExhaustion.Patches;
 public class AiTaskFleeEntityRPatch
 {
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(AiTaskFleeEntityR), MethodType.Constructor)]
-    public static void PostConstructor(AiTaskFleeEntityR __instance, JsonObject taskConfig)
+    [HarmonyPatch(typeof(AiTaskFleeEntityR), MethodType.Constructor, new[] { typeof(EntityAgent), typeof(JsonObject), typeof(JsonObject) })]
+    public static void Postfix(AiTaskFleeEntityR __instance, JsonObject taskConfig)
     {
         ExtendedAiTaskFleeEntityR extended = ExtendedAiTaskFleeEntityR.FromOriginal(__instance);
         extended.InitialMoveSpeed = taskConfig["movespeed"].AsFloat(extended.InitialMoveSpeed);
